@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:20:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/05 17:26:49 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/05 19:02:15 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,83 +14,94 @@
 
 int	main(int argc, char **argv)
 {
-	int		i;
 	int		collectible;
-	int		firstline_len;
+	int		player;
+	int		exit;
 	int		file;
+
+	if (argc != 2)
+		error_handling("Wrong number of arguments, dude");
+	collectible = 0;
+	player = 0;
+	exit = 0;
+	file = open(argv[1], O_RDONLY);
+	if (file < 0)
+		error_handling("Failed to open the file.");
+	cep_number_check(file, player, exit, collectible);
+	valid_extension(argv);
+	return (0);
+}
+
+void	error_handling(char *str)
+{
+	ft_printf("%s\n", str);
+	exit(0);
+}
+
+void	rectangular_check(int file)
+{
+	int		firstline_len;
 	char	*line;
 
-	i = 0;
-	collectible = 0;
-	file = open(argv[1]);
 	line = get_next_line(file);
 	firstline_len = ft_strlen(line);
-    if (ft_strchr(line, 'E'))
-	{
-		ft_printf("There should be one EXIT\n");
-		return (1);
-	}
-	else if (ft_strchar(line, 'P'))
-	{
-		ft_printf("There should be one PLAYER\n");
-		return (1);
-	}
-	while (str[i])
-	{
-		if (str[i] == 'C')
-			collectible++;
-		i++;
-	}
-	map->collectible = collectible;
-	if (!collectible)
-	{
-		ft_printf("There should be at least one COLLECTIBLE\n");
-		return (1);
-	}
-	if (file < 0) 
-    {
-		ft_printf("Failed to open the file.\n");
-        return (1);
-	}
 	while (line)
 	{
 		line = get_next_line(file);
 		if (firstline_len != ft_strlen(line))
+			error_handling("The map has to be rectangular!");
+	}
+}
+
+int	cep_number_check(int file, int player, int exit, int collectible)
+{
+	cep_counter(file, player, exit, collectible);
+	if (player != 1)
+		error_handling("There should be one player!");
+	if (exit != 1)
+		error_handling("There should be one exit!");
+	if (collectible < 1)
+		error_handling("There should be at least one collectible!");
+}
+
+int	cep_counter(int file, int player, int exit, int collectible)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	line = get_next_line(file);
+	while (line)
+	{
+		line = get_next_line(file);
+		if (line)
 		{
-			ft_printf("The map has to be rectangular\n");
-			return (1);
+			i = 0;
+			while (line[i])
+			{
+				if (line[i] == 'P')
+					player++;
+				else if (line[i] == 'E')
+					exit++;
+				else if (line[i] == 'C')
+					collectible++;
+				i++;
+			}
 		}
 	}
 }
 
-// int	error_arguments(int argc, char **argv)
-// {
-// 	if (argc != 2)
-// 		return (1);
-// }
+void	valid_extension(char **argv)
+{
+	int		length;
+	char	*str;
 
-// int	valid_extension(t_map *map)
-// {
-// 	int		length;
-// 	char	*str;
-
-// 	str = map->path;
-// 	length = ft_strlen(str) - 1;
-// 	if (str[length - 3] != '.' || str[length - 2] != 'b'
-// 		|| str[length - 1] != 'e' || str[length] != r)
-// 		return (1);
-// 	return (0);
-// }
-
-// int	empty_file_check(t_map *map)
-// {
-// 	char	*str;
-
-// 	str = get_next_line(map->path);
-// 	if (!str)
-// 		return (1);
-// 	return (0);
-// }
+	str = argv[1];
+	length = ft_strlen(str) - 1;
+	if (str[length - 3] != '.' || str[length - 2] != 'b'
+		|| str[length - 1] != 'e' || str[length] != 'r')
+		error_handling("Map extension invalid");
+}
 
 // int	valid_characters(t_map *map)
 // {
