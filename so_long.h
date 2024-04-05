@@ -6,16 +6,16 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/04 19:42:02 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:28:39 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "libft/libft.h"
+# include "libraries/libft/libft.h"
 # include <fcntl.h>
-# include "../lib/MLX42/include/MLX42/MLX42.h"
+# include "libraries/MLX42/include/MLX42/MLX42.h"
 
 typedef struct s_point
 {
@@ -29,6 +29,7 @@ typedef struct s_map
 	int		collectible;
 	int		player;
 	int		exit;
+	int		height;
 }				t_map;
 
 #endif
