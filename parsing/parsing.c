@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:20:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/06 15:49:02 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:14:01 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	error_handling(char *str)
 	exit(0);
 }
 
-int	file_opening(char **argv)
+int	file_opening(char **str)
 {
 	int	file;
 
-	file = open(argv[1], O_RDONLY);
+	file = open((char *)str, O_RDONLY);
 	if (file < 0)
 		error_handling("Failed to open the file.");
 	return (file);
