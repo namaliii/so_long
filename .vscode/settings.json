@@ -3,6 +3,7 @@
         "unistd.h": "c",
         "sstream": "c",
         "__tuple": "c",
-        "array": "c"
+        "array": "c",
+        "so_long.h": "c"
     }
 }

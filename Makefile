@@ -8,7 +8,8 @@ LIBFT =	$(LIBFT_PATH)/libft.a
 LDFLAGS = -L $(LIBFT_PATH) -lft
 
 SRC =	parsing/array_utils.c parsing/map_utils.c \
-		parsing/create_array.c parsing/main.c
+		parsing/create_array.c parsing/path_validity.c \
+		parsing/main.c
 OBJ =	$(SRC:.c=.o)
 
 all: $(LIBFT) $(NAME)

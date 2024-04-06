@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:20:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/06 18:52:55 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:05:52 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	rectangular_check(char **array)
 	}
 }
 
-static int last_line_idx(char **array)
+static int	last_line_idx(char **array)
 {
 	int	number_of_lines;
 
@@ -49,7 +49,7 @@ static int last_line_idx(char **array)
 	return (number_of_lines);
 }
 
-void surrounded_by_walls(char **array)
+void	surrounded_by_walls(char **array)
 {
 	int	i;
 	int	j;
