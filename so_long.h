@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/07 16:35:46 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/07 17:34:28 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int		count_lines(char *str);
 char	**create_array(char *str);
 void	rectangular_check(char **array);
 void	surrounded_by_walls(char **array);
-void	figure_number_check(char **array, int *player,
-			int *exit, int *collectible);
+void	figure_number_check(char **array);
 void	valid_extension(char *str);
 void	valid_characters(char **array);
 void	map_validity(char *str);

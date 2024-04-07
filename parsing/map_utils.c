@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:04:23 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/07 17:26:58 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/07 17:34:36 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,21 @@ static void	figure_counter(char **array, int *player,
 	}
 }
 
-void	figure_number_check(char **array, int *player,
-	int *exit, int *collectible)
+void	figure_number_check(char **array)
 {
-	figure_counter(array, player, exit, collectible);
-	if (*player != 1)
+	int	collectible;
+	int	player;
+	int	exit;
+
+	collectible = 0;
+	player = 0;
+	exit = 0;
+	figure_counter(array, &player, &exit, &collectible);
+	if (player != 1)
 		error_handling("There should be one player!");
-	if (*exit != 1)
+	if (exit != 1)
 		error_handling("There should be one exit!");
-	if (*collectible < 1)
+	if (collectible < 1)
 		error_handling("There should be at least one collectible!");
 }
 
@@ -83,19 +89,15 @@ void	valid_characters(char **array)
 
 void	map_validity(char *str)
 {
-	int		collectible;
-	int		player;
-	int		exit;
 	char	**array;
+	char	**tmp_array;
 
-	collectible = 0;
-	player = 0;
-	exit = 0;
 	array = create_array(str);
-	figure_number_check(array, &player, &exit, &collectible);
+	tmp_array = array;
+	figure_number_check(array);
 	rectangular_check(array);
 	valid_extension(str);
 	valid_characters(array);
 	surrounded_by_walls(array);
-	valid_path(array);
+	valid_path(tmp_array);
 }
