@@ -1,18 +1,31 @@
-NAME = so_long
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
-LIBFT_PATH = ./libraries/libft
-PARSING_PATH = ./parsing
+NAME		:= so_long
 
-LIBFT =	$(LIBFT_PATH)/libft.a
-LDFLAGS = -L $(LIBFT_PATH) -lft
+CC			:= cc
+CFLAGS		:= -Wall -Werror -Wextra -g
 
-SRC =	parsing/array_utils.c parsing/map_utils.c \
-		parsing/create_array.c parsing/path_validity.c \
-		parsing/main.c
-OBJ =	$(SRC:.c=.o)
+CFLAGS_MLX	:= -Wall -Werror -Wextra -g -Wunreachable-code -Ofast
+MLX_PATH	:= ./libraries/MLX42
 
-all: $(LIBFT) $(NAME)
+HEADERS		:= -I ./include -I $(MLX_PATH)/include
+LIB_MLX		:= $(MLX_PATH)/build/MLX_PATH42.a -ldl -lglfw -pthread -lm
+SRC_MLX		:= $(shell find ./src -iname "*.c")
+OBJ_MLX 	:= $(SRC_MLX:.c=.o)
+
+LIBFT_PATH 	:= ./libraries/libft
+PARSING_PATH:= ./parsing
+
+LIBFT 		:=	$(LIBFT_PATH)/libft.a
+LDFLAGS 	:= -L $(LIBFT_PATH) -lft
+
+SRC 		:=	parsing/array_utils.c parsing/map_utils.c \
+				parsing/create_array.c parsing/path_validity.c \
+				parsing/main.c
+OBJ 		:=	$(SRC:.c=.o)
+
+all: libmlx $(LIBFT) $(NAME)
+
+libmlx:
+	@cmake $(MLX_PATH) -B $(MLX_PATH)/build && make -C $(MLX_PATH)/build -j4
 
 $(LIBFT):
 	@make -C $(LIBFT_PATH)
