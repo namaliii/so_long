@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:46:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/06 18:46:53 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/07 16:41:03 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	file_opening(char *str)
 {
 	int	file;
 
-	ft_printf("Otwieram: %s\n", str);
 	file = open(str, O_RDONLY);
 	if (file < 0)
 		error_handling("Failed to open the file.");

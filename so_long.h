@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/06 18:31:57 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/07 16:35:46 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void	figure_number_check(char **array, int *player,
 void	valid_extension(char *str);
 void	valid_characters(char **array);
 void	map_validity(char *str);
+void	valid_path(char **array);
 int		main(int argc, char **argv);
 #endif

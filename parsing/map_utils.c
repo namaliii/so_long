@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:04:23 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/06 18:38:43 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/07 17:26:58 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	figure_counter(char **array, int *player,
 		j = 0;
 		while (array[i][j])
 		{
-			ft_printf("%c", array[i][j]);
 			if (array[i][j] == 'P')
 				(*player)++;
 			else if (array[i][j] == 'E')
@@ -98,4 +97,5 @@ void	map_validity(char *str)
 	valid_extension(str);
 	valid_characters(array);
 	surrounded_by_walls(array);
+	valid_path(array);
 }
