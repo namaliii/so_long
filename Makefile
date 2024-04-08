@@ -4,12 +4,11 @@ CC			:= cc
 CFLAGS		:= -Wall -Werror -Wextra -g
 
 CFLAGS_MLX	:= -Wall -Werror -Wextra -g -Wunreachable-code -Ofast
-MLX_PATH	:= ./libraries/MLX42
+MLX_PATH	:= libraries/MLX42
 
 HEADERS		:= -I ./include -I $(MLX_PATH)/include
 LIB_MLX		:= $(MLX_PATH)/build/MLX_PATH42.a -ldl -lglfw -pthread -lm
-SRC_MLX		:= $(shell find ./src -iname "*.c")
-OBJ_MLX 	:= $(SRC_MLX:.c=.o)
+MLX			:=  libraries/MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 LIBFT_PATH 	:= ./libraries/libft
 PARSING_PATH:= ./parsing
@@ -31,19 +30,19 @@ $(LIBFT):
 	@make -C $(LIBFT_PATH)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) $(MLX) -o $@
 
 $(OBJ): %.o : %.c
-	$(CC) -c $(CFLAGS) -I$(LIBFT_PATH) $< -o $@
+	$(CC) -c $(CFLAGS) -I$(LIBFT_PATH) $(HEADERS) $< -o $@
 
 clean:
-	/bin/rm -f $(OBJ)
+	rm -f $(OBJ)
 	@make -C $(LIBFT_PATH) clean
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
 	@make -C $(LIBFT_PATH) fclean
 
 re: fclean all
 
-.PHONY: all clean fclean norm re
+.PHONY: all clean fclean norm re libmlx
