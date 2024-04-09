@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:20:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/09 13:41:45 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:11:22 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	error_handling(char **array, char *str)
 {
+	// put the game  struct and free it
 	ft_printf("%s\n", str);
 	free(array);
 	exit(0);

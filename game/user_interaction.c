@@ -6,12 +6,11 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:20:04 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/09 13:38:53 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:49:53 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "../libraries/MLX42/include/MLX42/MLX42.h" // is that necessary if I have it included in so_long.h?
 
 // • The W, A, S, and D keys must be used to move the main character.
 // • The player should be able to move in these 4 directions: up, down, left, right.
