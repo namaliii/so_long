@@ -11,14 +11,13 @@ LIB_MLX		:= $(MLX_PATH)/build/MLX_PATH42.a -ldl -lglfw -pthread -lm
 MLX			:=  libraries/MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 LIBFT_PATH 	:= ./libraries/libft
-PARSING_PATH:= ./parsing
 
 LIBFT 		:=	$(LIBFT_PATH)/libft.a
 LDFLAGS 	:= -L $(LIBFT_PATH) -lft
 
-SRC 		:=	parsing/array_utils.c parsing/map_utils.c \
-				parsing/create_array.c parsing/path_validity.c \
-				parsing/main.c
+SRC 		:=	map/array_utils.c map/map_utils.c \
+				map/create_array.c map/path_validity.c \
+				main.c
 OBJ 		:=	$(SRC:.c=.o)
 
 all: libmlx $(LIBFT) $(NAME)

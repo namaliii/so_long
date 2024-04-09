@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:16:41 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/07 17:23:21 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:33:30 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,10 @@ void	valid_path(char **array)
 		j = 0;
 		while (array[i][j])
 		{
-			if (array[i][j] != '1' && array[i][j] != '0' && array[i][j] != '\n')
-				error_handling("Some significant characters are unreachable!");
+			if (array[i][j] != '1' && array[i][j] != '0'
+				&& array[i][j] != '\n')
+				error_handling(array,
+					"Some significant characters are unreachable!");
 			j++;
 		}
 		i++;

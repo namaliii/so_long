@@ -4,6 +4,12 @@
         "sstream": "c",
         "__tuple": "c",
         "array": "c",
-        "so_long.h": "c"
+        "so_long.h": "c",
+        "__bit_reference": "c",
+        "__string": "c",
+        "algorithm": "c",
+        "ios": "c",
+        "string": "c",
+        "type_traits": "c"
     }
 }

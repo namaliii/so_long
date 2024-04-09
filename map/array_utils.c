@@ -6,15 +6,16 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:20:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/06 19:05:52 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:41:45 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	error_handling(char *str)
+void	error_handling(char **array, char *str)
 {
 	ft_printf("%s\n", str);
+	free(array);
 	exit(0);
 }
 
@@ -34,7 +35,7 @@ void	rectangular_check(char **array)
 		if (array[i][line_len - 1] == '\n')
 			line_len--;
 		if (line_len != firstline_len)
-			error_handling("The map has to be rectangular!");
+			error_handling(array, "The map has to be rectangular!");
 		i++;
 	}
 }
@@ -59,20 +60,20 @@ void	surrounded_by_walls(char **array)
 	while (array[0][j] && array[0][j] != '\n')
 	{
 		if (array[0][j] != '1')
-			error_handling("Game field must be surrounded by walls");
+			error_handling(array, "Game field must be surrounded by walls");
 		j++;
 	}
 	while (i < last_line_idx(array) - 1)
 	{
 		if (array[i][0] != '1' || array[i][ft_strlen(array[i]) - 2] != '1')
-			error_handling("Game field must be surrounded by walls");
+			error_handling(array, "Game field must be surrounded by walls");
 		i++;
 	}
 	j = 0;
 	while (array[last_line_idx(array) - 1][j])
 	{
 		if (array[last_line_idx(array) - 1][j] != '1')
-			error_handling("Game field must be surrounded by walls");
+			error_handling(array, "Game field must be surrounded by walls");
 		j++;
 	}
 }

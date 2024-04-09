@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:46:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/07 16:41:03 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:42:58 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	file_opening(char *str)
 
 	file = open(str, O_RDONLY);
 	if (file < 0)
-		error_handling("Failed to open the file.");
+		error_handling(NULL, "Failed to open the file.");
 	return (file);
 }
 
