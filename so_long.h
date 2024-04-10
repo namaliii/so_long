@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/10 14:20:58 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:15:17 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,21 @@ typedef struct s_game
 	mlx_image_t	*collectible;
 }				t_game;
 
-void	error_handling(char **array, char *str);
-int		file_opening(char *str);
-int		count_lines(char *str);
-char	**create_array(char *str);
+void	error_handling(char **array, char *file_name);
+int		file_opening(char *file_name);
+int		count_lines(char *file_name);
+char	**create_array(char *file_name);
 void	rectangular_check(char **array);
 void	surrounded_by_walls(char **array);
 void	figure_number_check(char **array);
-void	valid_extension(char **array, char *str);
+void	valid_extension(char **array, char *file_name);
 void	valid_characters(char **array);
-void	map_validity(t_game game, char **array, char *str);
-void	valid_path(t_game game);
+void	map_validity(t_game *game, char *file_name);
+void	valid_path(t_game *game, char **array);
 
-t_point	player_position_set(t_game game);
-t_point	size_set(t_game game);
-t_point	exit_position_set(t_game game);
+t_point	player_position_set(t_game *game);
+t_point	size_set(t_game *game);
+t_point	exit_position_set(t_game *game);
 
 void	render_map(t_game *game);
 void	load_images(t_game *game);

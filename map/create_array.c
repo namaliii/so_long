@@ -6,29 +6,29 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:46:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/09 13:42:58 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:14:44 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	file_opening(char *str)
+int	file_opening(char *file_name)
 {
 	int	file;
 
-	file = open(str, O_RDONLY);
+	file = open(file_name, O_RDONLY);
 	if (file < 0)
 		error_handling(NULL, "Failed to open the file.");
 	return (file);
 }
 
-int	count_lines(char *str)
+int	count_lines(char *file_name)
 {
 	char	*count_line;
 	int		number_of_lines;
 	int		file;
 
-	file = file_opening(str);
+	file = file_opening(file_name);
 	count_line = get_next_line(file);
 	if (!count_line)
 	{
@@ -46,7 +46,7 @@ int	count_lines(char *str)
 	return (number_of_lines);
 }
 
-char	**create_array(char *str)
+char	**create_array(char *file_name)
 {
 	char	**array;
 	char	*temp;
@@ -55,8 +55,8 @@ char	**create_array(char *str)
 	int		j;
 
 	i = 0;
-	array = ft_calloc(count_lines(str) + 1, sizeof(char *));
-	file = file_opening(str);
+	array = ft_calloc(count_lines(file_name) + 1, sizeof(char *));
+	file = file_opening(file_name);
 	temp = get_next_line(file);
 	while (temp)
 	{

@@ -6,16 +6,16 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:20:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/09 19:11:22 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:14:58 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	error_handling(char **array, char *str)
+void	error_handling(char **array, char *file_name)
 {
 	// put the game  struct and free it
-	ft_printf("%s\n", str);
+	ft_printf("%s\n", file_name);
 	free(array);
 	exit(0);
 }

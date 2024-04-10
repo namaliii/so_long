@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:16:41 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/10 14:16:53 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:18:00 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,32 @@ static void	fill(char **array, t_point size, t_point current)
 	fill(array, size, (t_point){current.x, current.y -1});
 }
 
-static void	flood_fill(t_game game)
+static void	flood_fill(t_game *game, char **array)
 {
 	t_point	size;
 	t_point	player;
 
 	size = size_set(game);
 	player = player_position_set(game);
-	fill(game.map.array, size, player);
+	fill(array, size, player);
 }
 
-void	valid_path(t_game game)
+void	valid_path(t_game *game, char **array)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	flood_fill(game);
-	while (game.map.array[i])
+	flood_fill(game, array);
+	while (array[i])
 	{
 		j = 0;
-		while (game.map.array[i][j])
+		while (array[i][j])
 		{
-			if (game.map.array[i][j] != '1' && game.map.array[i][j] != '0'
-				&& game.map.array[i][j] != '\n')
-				error_handling(game.map.array,
+			if (array[i][j] != '1' && array[i][j] != '0'
+				&& array[i][j] != '\n')
+				error_handling(array,
 					"Some significant characters are unreachable!");
 			j++;
 		}
