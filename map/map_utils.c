@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:04:23 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/09 14:33:02 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:22:17 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,17 @@ void	valid_characters(char **array)
 	}
 }
 
-void	map_validity(char **array, char *str)
+void	map_validity(t_game game, char **array, char *str)
 {
-	char	**tmp_array;
+	t_game	tmp_game;
 
-	tmp_array = array;
+	tmp_game = game;
 	figure_number_check(array);
 	rectangular_check(array);
 	valid_extension(array, str);
 	valid_characters(array);
 	surrounded_by_walls(array);
-	valid_path(tmp_array);
-	free(tmp_array);
+	valid_path(tmp_game);
+	free(tmp_game.map.array);
+	//free the tmp_game
 }

@@ -6,56 +6,11 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:16:41 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/09 14:33:30 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:16:53 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-static t_point	size_set(char **array)
-{
-	int		x;
-	int		y;
-	t_point	size;
-
-	x = 0;
-	y = 0;
-	while (array[0][x] != '\n' && array[0][x] != '\0')
-		x++;
-	while (array[y])
-		y++;
-	size.x = x;
-	size.y = y;
-	return (size);
-}
-
-static t_point	player_position_set(char **array)
-{
-	int		x;
-	int		y;
-	t_point	player;
-
-	x = 0;
-	y = 0;
-	while (array[y])
-	{
-		x = 0;
-		while (array[y][x])
-		{
-			if (array[y][x] == 'P')
-			{
-				player.x = x;
-				player.y = y;
-				return (player);
-			}
-			x++;
-		}
-		y++;
-	}
-	player.x = x;
-	player.y = y;
-	return (player);
-}
 
 static void	fill(char **array, t_point size, t_point current)
 {
@@ -69,32 +24,32 @@ static void	fill(char **array, t_point size, t_point current)
 	fill(array, size, (t_point){current.x, current.y -1});
 }
 
-static void	flood_fill(char **array)
+static void	flood_fill(t_game game)
 {
 	t_point	size;
 	t_point	player;
 
-	size = size_set(array);
-	player = player_position_set(array);
-	fill(array, size, player);
+	size = size_set(game);
+	player = player_position_set(game);
+	fill(game.map.array, size, player);
 }
 
-void	valid_path(char **array)
+void	valid_path(t_game game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	flood_fill(array);
-	while (array[i])
+	flood_fill(game);
+	while (game.map.array[i])
 	{
 		j = 0;
-		while (array[i][j])
+		while (game.map.array[i][j])
 		{
-			if (array[i][j] != '1' && array[i][j] != '0'
-				&& array[i][j] != '\n')
-				error_handling(array,
+			if (game.map.array[i][j] != '1' && game.map.array[i][j] != '0'
+				&& game.map.array[i][j] != '\n')
+				error_handling(game.map.array,
 					"Some significant characters are unreachable!");
 			j++;
 		}

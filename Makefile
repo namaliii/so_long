@@ -17,7 +17,7 @@ LDFLAGS 	:= -L $(LIBFT_PATH) -lft
 
 SRC 		:=	map/array_utils.c map/map_utils.c \
 				map/create_array.c map/path_validity.c \
-				game/load_images.c \
+				map/figures_positions.c game/load_images.c \
 				main.c
 
 OBJ 		:=	$(SRC:.c=.o)

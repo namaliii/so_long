@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/09 20:14:01 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:20:58 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ typedef struct s_point
 typedef struct s_map
 {
 	char	**array;
-	int		collectible;
-	int		player;
-	int		exit;
-	int		width;
-	int		height;
+	t_point	collectible;
+	t_point	player;
+	t_point	exit;
+	t_point	size;
 }				t_map;
 
 typedef struct s_game
@@ -53,8 +52,12 @@ void	surrounded_by_walls(char **array);
 void	figure_number_check(char **array);
 void	valid_extension(char **array, char *str);
 void	valid_characters(char **array);
-void	map_validity(char **array, char *str);
-void	valid_path(char **array);
+void	map_validity(t_game game, char **array, char *str);
+void	valid_path(t_game game);
+
+t_point	player_position_set(t_game game);
+t_point	size_set(t_game game);
+t_point	exit_position_set(t_game game);
 
 void	render_map(t_game *game);
 void	load_images(t_game *game);
