@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/10 15:15:17 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:51:09 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ typedef struct s_game
 {
 	t_map		map;
 	mlx_t		*mlx;
-	mlx_image_t	*background;
+	mlx_image_t	**background;
 	mlx_image_t	*wall;
-	mlx_image_t	*player;
-	mlx_image_t	*exit;
-	mlx_image_t	*collectible;
+	mlx_image_t	**player;
+	mlx_image_t	**exit;
+	mlx_image_t	**collectible;
+	mlx_image_t **exit;
 }				t_game;
 
 void	error_handling(char **array, char *file_name);
@@ -61,6 +62,7 @@ t_point	exit_position_set(t_game *game);
 
 void	render_map(t_game *game);
 void	load_images(t_game *game);
+mlx_image_t	*load_image(const char *path, t_game *game);
 
 int		main(int argc, char **argv);
 #endif

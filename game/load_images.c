@@ -6,13 +6,13 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:12:08 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/10 15:31:47 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:39:07 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-static mlx_image_t	*load_image(const char *path, t_game *game)
+mlx_image_t	*load_image(const char *path, t_game *game)
 {
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
@@ -25,15 +25,6 @@ static mlx_image_t	*load_image(const char *path, t_game *game)
 		exit(0); // same
 	mlx_resize_image(img, 64, 64);
 	return(img);
-}
-
-void	load_images(t_game *game)
-{
-	game->background = load_image("images/background.png", game);
-	game->wall = load_image("images/wall.png", game);
-	game->player = load_image("images/player.png", game);
-	game->exit = load_image("images/exit.png", game);
-	game->collectible = load_image("images/collectible.png", game);
 }
 
 void	render_map(t_game *game)
@@ -54,13 +45,23 @@ void	render_map(t_game *game)
 			else if (game->map.array[y][x] != '\n' )
 				mlx_image_to_window(game->mlx, game->background,
 					x * game->background->width, y * game->background->height);
+			if (game->map.array[y][x] == 'P')
+				mlx_image_to_window(game->mlx, game->player,
+					x * game->player->width, y * game->player->height);
+			else if (game->map.array[y][x] == 'C')
+				mlx_image_to_window(game->mlx, game->collectible,
+					x * game->collectible->width,
+					y * game->collectible->height);
+			else if (game->map.array[y][x] == 'E')
+				mlx_image_to_window(game->mlx, game->exit,
+					x * game->exit->width, y * game->exit->height);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	render_sprites(t_game *game)
-{
+// void	render_sprites(t_game *game)
+// {
 	
-}
+// }

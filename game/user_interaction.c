@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:20:04 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/09 18:49:53 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:42:20 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,4 @@ void	hook(void *param)
 	if (mlx_is_key_down(param, MLX_KEY_RIGHT))
 		g_img->instances[0].x += 5;
 }
+mlx_close_window(mlx_t* mlx);
