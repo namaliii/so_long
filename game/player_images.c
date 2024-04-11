@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:18:43 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/11 18:19:16 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:24:04 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	idle_right_imgs(t_game *game)
 		NULL
 	};
 
-	return (load_imgs(game, game->idle_right, imgs));
+	return (load_imgs_error_check(game, game->idle_right, imgs));
 }
 
 int	idle_left_imgs(t_game *game)
@@ -49,7 +49,7 @@ int	idle_left_imgs(t_game *game)
 		NULL
 	};
 
-	return (load_imgs(game, game->idle_left, imgs));
+	return (load_imgs_error_check(game, game->idle_left, imgs));
 }
 
 int	run_left_imgs(t_game *game)
@@ -70,7 +70,7 @@ int	run_left_imgs(t_game *game)
 		NULL
 	};
 
-	return (load_imgs(game, game->run_left, imgs));
+	return (load_imgs_error_check(game, game->run_left, imgs));
 }
 
 int	run_right_imgs(t_game *game)
@@ -91,5 +91,5 @@ int	run_right_imgs(t_game *game)
 		NULL
 	};
 
-	return (load_imgs(game, game->run_right, imgs));
+	return (load_imgs_error_check(game, game->run_right, imgs));
 }

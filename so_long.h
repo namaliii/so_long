@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/11 18:40:50 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:39:05 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include "libraries/MLX42/include/MLX42/MLX42.h"
 
+# define NUM_BACKG_IMGS 2
 # define NUM_IDLE_IMGS 11
 # define NUM_RUN_IMGS 12
 # define NUM_COLLECT_IMGS 17
@@ -42,7 +43,7 @@ typedef struct s_game
 {
 	t_map		map;
 	mlx_t		*mlx;
-	mlx_image_t	**background;
+	mlx_image_t	*background[NUM_BACKG_IMGS];
 	mlx_image_t	*wall;
 	mlx_image_t	*idle_right[NUM_IDLE_IMGS];
 	mlx_image_t	*idle_left[NUM_IDLE_IMGS];
@@ -52,6 +53,9 @@ typedef struct s_game
 	mlx_image_t	*collectible[NUM_COLLECT_IMGS];
 	mlx_image_t	*enemy[NUM_ENEMY_IMGS];
 	bool		is_moving;
+	int			index_melon;
+	int			idle;
+	int			run;
 }				t_game;
 
 void		error_handling(char **array, char *file_name);
@@ -78,6 +82,7 @@ int			enemy_imgs(t_game *game);
 int			background_imgs(t_game *game);
 int			wall_img(t_game *game);
 mlx_image_t	*load_image(const char *path, t_game *game);
+int 		load_images(t_game *game);
 void		render_map(t_game *game);
 
 int			main(int argc, char **argv);

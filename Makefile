@@ -48,3 +48,6 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean norm re libmlx
+
+test : $(NAME)
+	./$(NAME) map/map.ber
