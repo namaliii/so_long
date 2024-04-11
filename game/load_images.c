@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:12:08 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/11 12:39:07 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:45:50 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ mlx_image_t	*load_image(const char *path, t_game *game)
 
 	texture = mlx_load_png(path);
 	if (!texture)
-		exit(0); //error function that exits and frees
+		return (NULL);
 	img = mlx_texture_to_image(game->mlx, texture);
 	if (!img)
-		exit(0); // same
+		return (NULL);
 	mlx_resize_image(img, 64, 64);
-	return(img);
+	return (img);
 }
 
 void	render_map(t_game *game)
@@ -61,7 +61,14 @@ void	render_map(t_game *game)
 	}
 }
 
-// void	render_sprites(t_game *game)
-// {
-	
-// }
+void	animate(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (game->background[i] != NULL)
+	{
+		mlx_image_to_window(game->mlx, game->background[i], i * game->background[i]->width, y * game->background[i]->height);
+		i++;
+	}
+}

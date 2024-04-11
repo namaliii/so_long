@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:20:04 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/11 10:42:20 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:59:45 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,26 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 		puts("Hello ");
 
 	// If we RELEASE the 'K' key, print "World".
-	if (keydata.key == MLX_KEY_K && keydata.action == MLX_RELEASE)
+	if (keydata.key == MLX_KEY_K && keydata.action != MLX_RELEASE)
 		puts("World");
 
 	// If we HOLD the 'L' key, print "!".
 	if (keydata.key == MLX_KEY_L && keydata.action == MLX_REPEAT)
 		puts("!");
+}
+
+void loop_hook(void *param)
+{
+	mlx_t	*mlx;
+	static int counter = 0;
+	
+	mlx = param;
+	if (mlx_is_key_down(mlx, MLX_KEY_W))
+	{
+		counter++;
+		if(counter % 10 == 0)
+			move();
+	}
 }
 
 int32_t	main(void)
@@ -41,24 +55,25 @@ int32_t	main(void)
 
 	mlx_key_hook(mlx, &my_keyhook, NULL);
 	mlx_loop(mlx);
+	mlx_loop_hook(mlx, loop_hook, mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
 
-void	hook(void *param)
-{
-	mlx_t	*mlx;
+// void	hook(void *param)
+// {
+// 	mlx_t	*mlx;
 
-	mlx = param;
-	if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
-		mlx_close_window(param);
-	if (mlx_is_key_down(param, MLX_KEY_UP))
-		g_img->instances[0].y -= 5;
-	if (mlx_is_key_down(param, MLX_KEY_DOWN))
-		g_img->instances[0].y += 5;
-	if (mlx_is_key_down(param, MLX_KEY_LEFT))
-		g_img->instances[0].x -= 5;
-	if (mlx_is_key_down(param, MLX_KEY_RIGHT))
-		g_img->instances[0].x += 5;
-}
-mlx_close_window(mlx_t* mlx);
+// 	mlx = param;
+// 	if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
+// 		mlx_close_window(param);
+// 	if (mlx_is_key_down(param, MLX_KEY_UP))
+// 		g_img->instances[0].y -= 5;
+// 	if (mlx_is_key_down(param, MLX_KEY_DOWN))
+// 		g_img->instances[0].y += 5;
+// 	if (mlx_is_key_down(param, MLX_KEY_LEFT))
+// 		g_img->instances[0].x -= 5;
+// 	if (mlx_is_key_down(param, MLX_KEY_RIGHT))
+// 		g_img->instances[0].x += 5;
+// }
+// mlx_close_window(mlx_t* mlx);
