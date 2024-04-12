@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:07:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/11 20:39:54 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:14:45 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	update(void *param)
 {
-	t_game *game;
+	t_game			*game;
 	static int		cool_down;
 
 	game = (t_game *)param;
@@ -26,7 +26,13 @@ void	update(void *param)
 	}
 	else
 		cool_down--;
-	animate();
+	animate_idle_right(game->idle_right, NUM_IDLE_IMGS);
+	animate_idle_left(game->idle_left, NUM_IDLE_IMGS);
+	animate_run_right(game->run_right, NUM_RUN_IMGS);
+	animate_run_left(game->run_left, NUM_RUN_IMGS);
+	animate_exit(game->exit, NUM_EXIT_IMGS);
+	animate_enemy(game->enemy, NUM_ENEMY_IMGS);
+	animate_melon(game->collectible, NUM_COLLECT_IMGS);
 }
 
 int	main(int argc, char **argv)

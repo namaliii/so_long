@@ -6,24 +6,11 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:38:59 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/11 18:29:12 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/12 12:39:44 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-int	load_imgs_error_check(t_game *game, mlx_image_t **imgs, const char **paths)
-{
-	while (*paths != NULL)
-	{
-		*imgs = load_image(*paths, game);
-		if (*imgs == NULL)
-			return (1);
-		imgs++;
-		paths++;
-	}
-	return (0);
-}
 
 int	melon_imgs(t_game *game)
 {
