@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/12 17:09:31 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:40:31 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,15 @@ typedef struct s_map
 	t_point	exit;
 	t_point	size;
 	t_point	enemy;
+	bool	is_dead;
 }				t_map;
+
+typedef enum Direction {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+}			t_direction;
 
 typedef struct s_game
 {
@@ -54,6 +62,7 @@ typedef struct s_game
 	mlx_image_t	*collectible[NUM_COLLECT_IMGS];
 	mlx_image_t	*enemy[NUM_ENEMY_IMGS];
 	bool		is_moving;
+	t_direction	player_direction;
 	int			index_melon;
 	int			idle;
 	int			run;

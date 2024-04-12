@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:07:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/12 17:14:45 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:28:49 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void	update(void *param)
 	}
 	else
 		cool_down--;
-	animate_idle_right(game->idle_right, NUM_IDLE_IMGS);
+	if (game->player_direction == RIGHT)
+	{
+		// disable_everything(game->idle_left);
+		animate_idle_right(game->idle_right, NUM_IDLE_IMGS);
+	}
 	animate_idle_left(game->idle_left, NUM_IDLE_IMGS);
 	animate_run_right(game->run_right, NUM_RUN_IMGS);
 	animate_run_left(game->run_left, NUM_RUN_IMGS);
