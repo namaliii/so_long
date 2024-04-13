@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:04:23 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/13 12:40:41 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:49:26 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	map_validity(t_game *game, char *file_name)
 	valid_characters(game->map.array);
 	surrounded_by_walls(game->map.array);
 	valid_path(game, tmp_array);
+	// exit_position_set(game);
+	// player_position_set(game);
 	count_collectibles(game->map);
 	free(tmp_array);
 	//free the tmp_game

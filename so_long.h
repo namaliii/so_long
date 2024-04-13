@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/13 12:39:31 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:44:17 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define NUM_EXIT_IMGS 8
 # define NUM_ENEMY_IMGS 4
 
+# define TILE_SIZE 64
+
 typedef struct s_point
 {
 	int	x;
@@ -39,6 +41,7 @@ typedef struct s_map
 	t_point	size;
 	t_point	enemy;
 	int		melon_count;
+	int		collected;
 	bool	is_dead;
 }				t_map;
 
@@ -51,7 +54,7 @@ typedef enum Direction {
 
 typedef struct s_game
 {
-	t_map		map; /// pointer?
+	t_map		map;
 	mlx_t		*mlx;
 	mlx_image_t	*background[NUM_BACKG_IMGS];
 	mlx_image_t	*wall;
@@ -79,7 +82,7 @@ void		valid_extension(char **array, char *file_name);
 void		valid_characters(char **array);
 void		map_validity(t_game *game, char *file_name);
 void		valid_path(t_game *game, char **array);
-int			count_collectibles(t_map map);
+void		count_collectibles(t_map map);
 
 t_point		player_position_set(t_game *game);
 t_point		size_set(t_game *game);
@@ -101,22 +104,24 @@ mlx_image_t	*load_image(const char *path, t_game *game);
 int			load_images(t_game *game);
 
 // rendering
-void		render_idle(t_game *game, int x, int y);
-void		render_run(t_game *game, int x, int y);
-void		render_melon(t_game *game, int x, int y);
-void		render_exit(t_game *game, int x, int y);
-void		render_enemy(t_game *game, int x, int y);
-void		render_background(t_game *game, int x, int y);
+void		idle_img_to_window(t_game *game, int x, int y);
+void		run_img_to_window(t_game *game, int x, int y);
+void		melon_img_to_window(t_game *game, int x, int y);
+void		exit_img_to_window(t_game *game, int x, int y);
+void		enemy_img_to_window(t_game *game, int x, int y);
+void		background_img_to_window(t_game *game, int x, int y);
 void		render_map(t_game *game);
 
 // animate
 void		animate_exit(mlx_image_t **img, int num_imgs);
 void		animate_enemy(mlx_image_t **img, int num_imgs);
 void		animate_melon(mlx_image_t **img, int num_imgs);
-void		animate_idle_right(mlx_image_t **img, int num_imgs);
-void		animate_idle_left(mlx_image_t **img, int num_imgs);
-void		animate_run_right(mlx_image_t **img, int num_imgs);
-void		animate_run_left(mlx_image_t **img, int num_imgs);
+void		animate_idle_right(mlx_image_t **img, int num_imgs, t_game *game);
+void		animate_idle_left(mlx_image_t **img, int num_imgs, t_game *game);
+void		animate_run_right(mlx_image_t **img, int num_imgs, t_game *game);
+void		animate_run_left(mlx_image_t **img, int num_imgs, t_game *game);
+
+void		my_keyhook(mlx_key_data_t keydata, void* param);
 
 int			main(int argc, char **argv);
 #endif

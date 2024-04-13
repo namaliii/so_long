@@ -6,13 +6,13 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:05:39 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/12 16:37:07 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:32:09 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	render_idle(t_game *game, int x, int y)
+void	idle_img_to_window(t_game *game, int x, int y)
 {
 	int	i;
 
@@ -25,7 +25,6 @@ void	render_idle(t_game *game, int x, int y)
 		game->idle_right[i]->enabled = false;
 		i++;
 	}
-	game->idle_right[0]->enabled = true;
 	i = 0;
 	while (i < NUM_IDLE_IMGS)
 	{
@@ -37,7 +36,7 @@ void	render_idle(t_game *game, int x, int y)
 	}
 }
 
-void	render_run(t_game *game, int x, int y)
+void	run_img_to_window(t_game *game, int x, int y)
 {
 	int	i;
 
@@ -61,7 +60,7 @@ void	render_run(t_game *game, int x, int y)
 	}
 }
 
-void	render_melon(t_game *game, int x, int y)
+void	melon_img_to_window(t_game *game, int x, int y)
 {
 	int	i;
 
@@ -74,5 +73,4 @@ void	render_melon(t_game *game, int x, int y)
 		game->collectible[i]->enabled = false;
 		i++;
 	}
-	game->collectible[0]->enabled = true;
 }

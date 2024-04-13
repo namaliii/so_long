@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:07:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/12 20:22:24 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:36:26 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,20 @@ void	update(void *param)
 	// if (game->player_direction == RIGHT)
 	// {
 		// disable_everything(game->idle_left);
-		animate_idle_right(game->idle_right, NUM_IDLE_IMGS);
+		animate_idle_right(game->idle_right, NUM_IDLE_IMGS, game);
 	// }
-	animate_idle_left(game->idle_left, NUM_IDLE_IMGS);
-	animate_run_right(game->run_right, NUM_RUN_IMGS);
-	animate_run_left(game->run_left, NUM_RUN_IMGS);
+	// animate_idle_left(game->idle_left, NUM_IDLE_IMGS, game);
+	// animate_run_right(game->run_right, NUM_RUN_IMGS, game);
+	// animate_run_left(game->run_left, NUM_RUN_IMGS, game);
 	animate_exit(game->exit, NUM_EXIT_IMGS);
 	animate_enemy(game->enemy, NUM_ENEMY_IMGS);
 	animate_melon(game->collectible, NUM_COLLECT_IMGS);
 }
+
+// void update_player_position(t_game *game)
+// {
+
+// }
 
 int	main(int argc, char **argv)
 {
@@ -50,6 +55,7 @@ int	main(int argc, char **argv)
 	game.mlx = mlx_init(1000, 1000, "So Long", true);
 	load_images(&game);
 	render_map(&game);
+	mlx_key_hook(game.mlx, my_keyhook, (void *)&game);
 	mlx_loop_hook(game.mlx, update, (void *)&game);
 	mlx_loop(game.mlx);
 	free(game.map.array);
