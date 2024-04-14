@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:48:38 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/13 19:44:06 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:40:21 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,20 @@ t_point	exit_position_set(t_game *game)
 	return (game->map.exit);
 }
 
-void	count_collectibles(t_map map)
+void	count_collectibles(t_map *map)
 {
 	int	x;
 	int	y;
 
 	x = 0;
 	y = 0;
-	while (map.array[y])
+	while (map->array[y])
 	{
 		x = 0;
-		while (map.array[y][x])
+		while (map->array[y][x])
 		{
-			if (map.array[y][x] == 'C')
-				map.melon_count++;
+			if (map->array[y][x] == 'C')
+				map->melon_count++;
 			x++;
 		}
 		y++;

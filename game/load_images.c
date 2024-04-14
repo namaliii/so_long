@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_images2.c                                     :+:      :+:    :+:   */
+/*   load_images.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:39:05 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/12 12:39:54 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:49:38 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ int	load_imgs_error_check(t_game *game, mlx_image_t **imgs, const char **paths)
 
 int	load_images(t_game *game)
 {
-	if (background_imgs(game) || wall_img(game) || idle_right_imgs(game)
-		|| idle_left_imgs(game) || run_left_imgs(game) || run_right_imgs(game)
+	if (background_imgs(game) || wall_img(game) || player_imgs(game)
 		|| melon_imgs(game) || exit_imgs(game) || enemy_imgs(game))
 		return (1);
 	return (0);

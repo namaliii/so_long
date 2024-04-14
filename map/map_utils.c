@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:04:23 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/13 19:49:26 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:34:16 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,14 @@ void	valid_characters(char **array)
 	}
 }
 
+void	enemy_pos_set(t_game *game)
+{
+	game->enemy_pos.x = 1 * TILE_SIZE;
+	game->enemy_pos.y = 4 * TILE_SIZE;
+	game->enemy_dir.x = 1;
+	game->enemy_dir.y = 1;
+}
+
 void	map_validity(t_game *game, char *file_name)
 {
 	char	**tmp_array;
@@ -98,9 +106,10 @@ void	map_validity(t_game *game, char *file_name)
 	valid_characters(game->map.array);
 	surrounded_by_walls(game->map.array);
 	valid_path(game, tmp_array);
-	// exit_position_set(game);
-	// player_position_set(game);
-	count_collectibles(game->map);
+	size_set(game);
+	exit_position_set(game);
+	count_collectibles(&game->map);
+	enemy_pos_set(game);
 	free(tmp_array);
 	//free the tmp_game
 }

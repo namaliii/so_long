@@ -20,9 +20,8 @@ SRC 		:=	map/array_utils.c map/map_utils.c \
 				map/figures_positions.c game/load_images.c \
 				game/load_images.c game/player_images.c \
 				game/other_images.c game/render_map.c \
-				game/render_variables.c game/animate_player.c \
-				game/animate_rest.c game/user_interaction.c \
-				main.c
+				game/render_variables.c game/animate.c \
+				game/user_interaction.c main.c
 
 OBJ 		:=	$(SRC:.c=.o)
 

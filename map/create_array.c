@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:46:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/10 15:14:44 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:21:20 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ char	**create_array(char *file_name)
 		j = 0;
 		while (temp[j])
 		{
+			// ft_printf("%d", array[i][j]);
 			array[i][j] = temp[j];
 			j++;
 		}
+		// ft_printf("\n");
 		i++;
 		temp = get_next_line(file);
 	}
