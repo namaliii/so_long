@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:07:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/14 18:57:18 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/14 20:22:29 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void enemy_x_collisions(t_game *game)
 	{
 		collision_tile.x = (game->enemy_pos.x + TILE_SIZE) / TILE_SIZE;
 		collision_tile.y = (int)(game->enemy_pos.y / TILE_SIZE);
-		ft_printf("px: %i | %i  \n", game->enemy_pos.x, game->enemy_pos.y);
-		ft_printf("tx: %i | %i  \n", collision_tile.x, collision_tile.y);
 		if (game->map.array[collision_tile.y][collision_tile.x] == '1')
 		{
 			game->enemy_dir.x = -1;
@@ -102,8 +100,6 @@ void enemy_x_collisions(t_game *game)
 	}
 }
 
-// void	enemy_player_collision()
-
 void	update(void *param)
 {
 	t_game			*game;
@@ -128,70 +124,17 @@ void	update(void *param)
 	animate_melon(game->collectible, NUM_COLLECT_IMGS);
 }
 
-// void 	enemy_y_collision(t_game *game)
-// {
-// 	t_point	collision_tile;
-
-// 	if (game->enemy_dir.y > 0)
-// 	{
-// 		collision_tile.x = (game->enemy_pos.x + TILE_SIZE) / TILE_SIZE;
-// 		collision_tile.y = (game->enemy_pos.y + TILE_SIZE) / TILE_SIZE;
-// 		if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-// 		{
-// 			game->enemy_dir.y = -1;
-// 			game->enemy_dir.x = 1;
-// 			game->enemy_pos.y = collision_tile.y * TILE_SIZE - TILE_SIZE;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		collision_tile.x = game->enemy_pos.x / TILE_SIZE;
-// 		collision_tile.y = game->enemy_pos.y / TILE_SIZE;
-// 		if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-// 		{
-// 			game->enemy_dir.y = 1;
-// 			game->enemy_pos.y = collision_tile.y * TILE_SIZE + TILE_SIZE;
-// 		}
-// 	}
-// }
-// void enemy_x_collisions(t_game *game)
-// {
-// 	t_point	collision_tile;
-
-// 	if (game->enemy_dir.x > 0)
-// 	{
-// 		enemy_y_collision(game);
-// 		collision_tile.x = (game->enemy_pos.x + TILE_SIZE) / TILE_SIZE;
-// 		collision_tile.y = (game->enemy_pos.y + TILE_SIZE) / TILE_SIZE;
-// 		if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-// 		{
-// 			game->enemy_dir.x = -1;
-// 			game->enemy_pos.x = collision_tile.x * TILE_SIZE - TILE_SIZE;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		enemy_y_collision(game);
-// 		collision_tile.x = game->enemy_pos.x / TILE_SIZE;
-// 		collision_tile.y = game->enemy_pos.y / TILE_SIZE;
-// 		if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-// 		{
-// 			game->enemy_dir.x = 1;
-// 			game->enemy_pos.x = collision_tile.x * TILE_SIZE + TILE_SIZE;
-// 		}
-// 	}
-// }
-
 int	main(int argc, char **argv)
 {
 	static t_game	game;
-	t_point	monitor_size;
+	t_point			monitor_size;
 
 	if (argc != 2)
 		error_handling(NULL, "Wrong number of arguments, dude");
 	game.map.array = create_array(argv[1]);
 	map_validity(&game, argv[1]);
-	game.mlx = mlx_init(game.map.size.x * TILE_SIZE, game.map.size.y * TILE_SIZE, "So Long", false);
+	game.mlx = mlx_init(game.map.size.x * TILE_SIZE,
+			game.map.size.y * TILE_SIZE, "So Long", false);
 	mlx_get_monitor_size(0, &monitor_size.x, &monitor_size.y);
 	if (game.map.size.x > monitor_size.x || game.map.size.y > monitor_size.y)
 		exit (EXIT_FAILURE); // and free
@@ -204,6 +147,3 @@ int	main(int argc, char **argv)
 	//free structs
 	return (0);
 }
-
-// fulfill the elements in the struct in the map parsing functions like
-//

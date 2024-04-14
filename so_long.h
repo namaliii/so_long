@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/14 17:59:17 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/14 20:20:55 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,15 @@ typedef struct s_map
 	char	**array;
 	t_point	collectible;
 	t_point	player;
+	t_point	player_copy;
 	t_point	exit;
 	t_point	size;
 	t_point	last_melon;
 	int		melon_count;
 	int		collected;
-	bool	is_dead;
+	int		display_moves;
+	int		shortest_route;
 }				t_map;
-// typedef enum e_direction {
-// 	UP,
-// 	DOWN,
-// 	LEFT,
-// 	RIGHT,
-// }			t_direction;
 
 typedef struct s_game
 {
@@ -76,11 +72,11 @@ void		map_validity(t_game *game, char *file_name);
 void		valid_path(t_game *game, char **array);
 void		count_collectibles(t_map *map);
 
+// setting
 t_point		player_position_set(t_game *game);
 t_point		size_set(t_game *game);
 t_point		exit_position_set(t_game *game);
 void		enemy_pos_set(t_game *game);
-void 		enemy_collisions(t_game *game);
 
 // images
 int			load_imgs_error_check(t_game *game, mlx_image_t **imgs,
@@ -108,10 +104,13 @@ void		animate_enemy(t_game *game, mlx_image_t **img, int num_imgs);
 void		animate_melon(mlx_image_t **img, int num_imgs);
 void		animate_player(mlx_image_t **img, int num_imgs, t_game *game);
 
-void		my_keyhook(mlx_key_data_t keydata, void* param);
-void 		move_enemy(t_game *game);
-void 		enemy_x_collisions(t_game *game);
-void 		enemy_y_collisions(t_game *game);
+void		my_keyhook(mlx_key_data_t keydata, void *param);
+
+// game
+void		move_and_collect(t_game *game);
+void		collect_melons(t_game *game, char **array);
+void		enemy_x_collisions(t_game *game);
+void		enemy_y_collisions(t_game *game);
 
 int			main(int argc, char **argv);
 #endif
