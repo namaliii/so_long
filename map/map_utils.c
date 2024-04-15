@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:04:23 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/14 18:34:16 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:01:26 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	valid_characters(char **array)
 
 void	enemy_pos_set(t_game *game)
 {
-	game->enemy_pos.x = 1 * TILE_SIZE;
-	game->enemy_pos.y = 4 * TILE_SIZE;
+	game->enemy_pos.x = game->map.exit.x * TILE_SIZE;
+	game->enemy_pos.y = game->map.exit.y * TILE_SIZE;
 	game->enemy_dir.x = 1;
 	game->enemy_dir.y = 1;
 }

@@ -6,27 +6,11 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:29:18 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/14 20:35:58 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:05:50 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-int	shortest_route(t_game *game)
-{
-	int	number_of_moves;
-
-	number_of_moves = 0;
-	if (game->map.last_melon.x > game->map.exit.x)
-		number_of_moves += (game->map.last_melon.x - game->map.exit.x);
-	else
-		number_of_moves += (game->map.last_melon.x + game->map.exit.x);
-	if (game->map.last_melon.y > game->map.exit.y)
-		number_of_moves += (game->map.last_melon.y - game->map.exit.y);
-	else
-		number_of_moves += (game->map.last_melon.y + game->map.exit.y);
-	return (number_of_moves);
-}
 
 static int	get_melon_index(t_game *game)
 {
@@ -45,30 +29,27 @@ static int	get_melon_index(t_game *game)
 	return (-1);
 }
 
-void	my_keyhook(mlx_key_data_t keydata, void *param)
+void	collect_melons(t_game *game, char **array)
 {
-	t_game	*game;
+	int		melon_inx;
+	int		imgs;
 
-	game = (t_game *)param;
-	game->map.player_copy = game->map.player;
-	if ((keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
-		&& keydata.action == MLX_PRESS)
-		game->map.player_copy.x -= 1;
-	else if ((keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT)
-		&& keydata.action == MLX_PRESS)
-		game->map.player_copy.x += 1;
-	else if ((keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
-		&& keydata.action == MLX_PRESS)
-		game->map.player_copy.y -= 1;
-	else if ((keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
-		&& keydata.action == MLX_PRESS)
-		game->map.player_copy.y += 1;
-	if ((keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT
-			|| keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT
-			|| keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP
-			|| keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
-		&& keydata.action == MLX_PRESS)
-		move_and_collect(game);
+	imgs = 0;
+	if (array[game->map.player_copy.y][game->map.player_copy.x] == 'C')
+	{
+		melon_inx = get_melon_index(game);
+		while (imgs < NUM_COLLECT_IMGS)
+		{
+			if (melon_inx != (-1))
+				game->collectible[imgs]->instances[melon_inx].enabled
+					= false;
+			imgs++;
+		}
+		game->map.array[game->map.player_copy.y][game->map.player_copy.x]
+			= '0';
+		game->map.collected++;
+
+	}
 }
 
 void	move_and_collect(t_game *game)
@@ -91,29 +72,30 @@ void	move_and_collect(t_game *game)
 	}
 }
 
-void	collect_melons(t_game *game, char **array)
+void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
-	int		melon_inx;
-	int		imgs;
+	t_game	*game;
 
-	imgs = 0;
-	if (array[game->map.player_copy.y][game->map.player_copy.x] == 'C')
-	{
-		melon_inx = get_melon_index(game);
-		while (imgs < NUM_COLLECT_IMGS)
-		{
-			if (melon_inx != (-1))
-				game->collectible[imgs]->instances[melon_inx].enabled
-					= false;
-			imgs++;
-		}
-		game->map.array[game->map.player_copy.y][game->map.player_copy.x]
-			= '0';
-		game->map.collected++;
-		if (game->map.collected == game->map.melon_count - 1)
-		{
-			game->map.last_melon.x = game->map.player_copy.x;
-			game->map.last_melon.y = game->map.player_copy.y;
-		}
-	}
+	game = (t_game *)param;
+	game->map.player_copy = game->map.player;
+	if ((keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
+		&& keydata.action == MLX_PRESS)
+		game->map.player_copy.x -= 1;
+	else if ((keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT)
+		&& keydata.action == MLX_PRESS)
+		game->map.player_copy.x += 1;
+	else if ((keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
+		&& keydata.action == MLX_PRESS)
+		game->map.player_copy.y -= 1;
+	else if ((keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
+		&& keydata.action == MLX_PRESS)
+		game->map.player_copy.y += 1;
+	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		exit(0);
+	if ((keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT
+			|| keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT
+			|| keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP
+			|| keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
+		&& keydata.action == MLX_PRESS)
+		move_and_collect(game);
 }

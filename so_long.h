@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/14 20:20:55 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:52:21 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,9 @@ typedef struct s_map
 	t_point	player_copy;
 	t_point	exit;
 	t_point	size;
-	t_point	last_melon;
 	int		melon_count;
 	int		collected;
 	int		display_moves;
-	int		shortest_route;
 }				t_map;
 
 typedef struct s_game
