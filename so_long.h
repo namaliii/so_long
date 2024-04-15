@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/15 12:52:21 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:59:33 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_game
 	mlx_image_t	*exit[NUM_EXIT_IMGS];
 	mlx_image_t	*collectible[NUM_COLLECT_IMGS];
 	mlx_image_t	*enemy[NUM_ENEMY_IMGS];
+	mlx_image_t	*moves_counter_img;
 	t_point		enemy_pos;
 	t_point		enemy_dir;
 }				t_game;

@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:07:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/15 15:41:55 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:34:30 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void enemy_x_collisions(t_game *game)
 			{
 				game->enemy_dir.x = -1;
 				game->enemy_pos.x = collision_tile.x * TILE_SIZE - TILE_SIZE - 1;
-
 			}
 		}
 	}
