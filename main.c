@@ -6,136 +6,48 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:07:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/15 20:34:30 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:13:30 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
-static void	enemy_player_collisions(t_point enemy_hitbox, t_point player_hitbox)
+void	ft_exit(t_game *game, int exit_code, char *str)
 {
-	t_point	upper_left;
-	t_point	upper_right;
-	t_point	lower_left;
-	t_point	lower_right;
-
-	upper_left.x = enemy_hitbox.x;
-	upper_left.y = enemy_hitbox.y;
-	upper_right.x = enemy_hitbox.x + TILE_SIZE / 2;
-	upper_right.y = enemy_hitbox.y;
-	lower_left.x = enemy_hitbox.x;
-	lower_left.y = enemy_hitbox.y + TILE_SIZE / 2;
-	lower_right.x = enemy_hitbox.x + TILE_SIZE / 2;
-	lower_right.y = enemy_hitbox.y + TILE_SIZE / 4;
-	if ((player_hitbox.x <= upper_left.x
-			&& (player_hitbox.x + 32) >= upper_left.x
-			&& player_hitbox.y <= upper_left.y
-			&& (player_hitbox.y + 32) >= upper_left.y)
-		|| (player_hitbox.x <= upper_right.x
-			&& (player_hitbox.x + 32) >= upper_right.x
-			&& player_hitbox.y <= upper_right.y
-			&& (player_hitbox.y + 32) >= upper_right.y)
-		|| (player_hitbox.x <= lower_left.x
-			&& (player_hitbox.x + 32) >= lower_left.x
-			&& player_hitbox.y <= lower_left.y
-			&& (player_hitbox.y + 32) >= lower_left.y)
-		|| (player_hitbox.x <= lower_right.x
-			&& (player_hitbox.x + 32) >= lower_right.x
-			&& player_hitbox.y == lower_right.y
-			&& (player_hitbox.y + 32) >= lower_right.y))
+	if (game->mlx)
 	{
-		ft_printf("You've been eaten by the monster");
-		exit(0);
+		mlx_terminate(game->mlx);
+		mlx_close_window(game->mlx);
 	}
+	if (exit_code == EXIT_SUCCESS)
+		ft_printf("gz gz, you won the game!\n");
+	else
+		ft_printf("%s\n", str);
+	free_2d_array(game->map.array);
+	exit(exit_code);
 }
 
-void 	enemy_y_collisions(t_game *game)
+void	free_2d_array(char **array)
 {
-	t_point	collision_tile;
+	int	i;
 
-	if (game->enemy_dir.y > 0)
+	i = 0;
+	if (!array)
+		return ;
+	while (array[i])
 	{
-		collision_tile.x = game->enemy_pos.x / TILE_SIZE;
-		collision_tile.y = (game->enemy_pos.y + TILE_SIZE) / TILE_SIZE;
-		if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-		{
-			game->enemy_dir.y = -1;
-			game->enemy_pos.y = collision_tile.y * TILE_SIZE - TILE_SIZE;
-		}
-		if (game->enemy_pos.x % TILE_SIZE != 0)
-		{
-			collision_tile.x++;
-			if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-			{
-				game->enemy_dir.y = -1;
-				game->enemy_pos.y = collision_tile.y * TILE_SIZE - TILE_SIZE;
-			}
-		}
+		free(array[i]);
+		i++;
 	}
-	else
-	{
-		collision_tile.x = game->enemy_pos.x / TILE_SIZE;
-		collision_tile.y = game->enemy_pos.y / TILE_SIZE;
-		if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-		{
-			game->enemy_dir.y = 1;
-			game->enemy_pos.y = collision_tile.y * TILE_SIZE + TILE_SIZE;
-		}
-		if (game->enemy_pos.x % TILE_SIZE != 0)
-		{
-			collision_tile.x++;
-			if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-			{
-				game->enemy_dir.y = 1;
-				game->enemy_pos.y = collision_tile.y * TILE_SIZE + TILE_SIZE;
-			}
-		}
-	}
+	free(array);
 }
 
-void enemy_x_collisions(t_game *game)
+static void	animate_all(t_game *game)
 {
-	t_point	collision_tile;
-
-	if (game->enemy_dir.x > 0)
-	{
-		collision_tile.x = (game->enemy_pos.x + TILE_SIZE) / TILE_SIZE;
-		collision_tile.y = (game->enemy_pos.y / TILE_SIZE);
-		if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-		{
-			game->enemy_dir.x = -1;
-			game->enemy_pos.x = collision_tile.x * TILE_SIZE - TILE_SIZE - 1;
-		}
-		if (game->enemy_pos.y % TILE_SIZE != 0)
-		{
-			collision_tile.y++;
-			if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-			{
-				game->enemy_dir.x = -1;
-				game->enemy_pos.x = collision_tile.x * TILE_SIZE - TILE_SIZE - 1;
-			}
-		}
-	}
-	else
-	{
-		collision_tile.x = game->enemy_pos.x / TILE_SIZE;
-		collision_tile.y = game->enemy_pos.y / TILE_SIZE;
-		if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-		{
-			game->enemy_dir.x = 1;
-			game->enemy_pos.x = collision_tile.x * TILE_SIZE + TILE_SIZE;
-		}
-		if (game->enemy_pos.y % TILE_SIZE != 0)
-		{
-			collision_tile.y++;
-			if (game->map.array[collision_tile.y][collision_tile.x] == '1')
-			{
-				game->enemy_dir.x = 1;
-				game->enemy_pos.x = collision_tile.x * TILE_SIZE + TILE_SIZE;
-			}
-		}
-	}
+	animate_player(game->player, NUM_PL_IMGS, game);
+	animate_exit(game->exit, NUM_EXIT_IMGS);
+	animate_enemy(game, game->enemy, NUM_ENEMY_IMGS);
+	animate_melon(game->collectible, NUM_COLLECT_IMGS);
 }
 
 void	update(void *param)
@@ -162,11 +74,8 @@ void	update(void *param)
 	}
 	else
 		cool_down--;
-	animate_player(game->player, NUM_PL_IMGS, game);
-	animate_exit(game->exit, NUM_EXIT_IMGS);
-	animate_enemy(game, game->enemy, NUM_ENEMY_IMGS);
-	animate_melon(game->collectible, NUM_COLLECT_IMGS);
-	enemy_player_collisions(enemy_hitbox, player_hitbox);
+	animate_all(game);
+	enemy_player_collisions(game, enemy_hitbox, player_hitbox);
 }
 
 int	main(int argc, char **argv)
@@ -175,20 +84,27 @@ int	main(int argc, char **argv)
 	t_point			monitor_size;
 
 	if (argc != 2)
-		error_handling(NULL, "Wrong number of arguments, dude");
-	game.map.array = create_array(argv[1]);
+		error_handling(&game, game.map.array,
+			"Wrong number of arguments, dude");
+	valid_extension(&game, argv[1]);
+	game.map.array = create_array(&game, argv[1]);
 	map_validity(&game, argv[1]);
 	game.mlx = mlx_init(game.map.size.x * TILE_SIZE,
 			game.map.size.y * TILE_SIZE, "So Long", false);
 	mlx_get_monitor_size(0, &monitor_size.x, &monitor_size.y);
 	if (game.map.size.x > monitor_size.x || game.map.size.y > monitor_size.y)
-		exit (EXIT_FAILURE); // and free
+		ft_exit(&game, EXIT_FAILURE, "Map bigger than the screen size!");
 	load_images(&game);
 	render_map(&game);
 	mlx_key_hook(game.mlx, my_keyhook, (void *)&game);
 	mlx_loop_hook(game.mlx, update, (void *)&game);
 	mlx_loop(game.mlx);
-	free(game.map.array);
-	//free structs
+	free_2d_array(game.map.array);
 	return (0);
 }
+
+// void	check_leaks(void)
+// {
+// 	system("leaks so_long");
+// }
+// atexit(check_leaks);

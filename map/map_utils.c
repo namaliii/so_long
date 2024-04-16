@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:04:23 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/15 14:01:26 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:09:02 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	figure_counter(char **array, int *player,
 	}
 }
 
-void	figure_number_check(char **array)
+void	figure_number_check(t_game *game)
 {
 	int	collectible;
 	int	player;
@@ -46,26 +46,27 @@ void	figure_number_check(char **array)
 	collectible = 0;
 	player = 0;
 	exit = 0;
-	figure_counter(array, &player, &exit, &collectible);
+	figure_counter(game->map.array, &player, &exit, &collectible);
 	if (player != 1)
-		error_handling(array, "There should be one player!");
+		error_handling(game, game->map.array, "There should be one player!");
 	if (exit != 1)
-		error_handling(array, "There should be one exit!");
+		error_handling(game, game->map.array, "There should be one exit!");
 	if (collectible < 1)
-		error_handling(array, "There should be at least one collectible!");
+		error_handling(game, game->map.array,
+			"There should be at least one collectible!");
 }
 
-void	valid_extension(char **array, char *str)
+void	valid_extension(t_game *game, char *file_name)
 {
 	int		length;
 
-	length = ft_strlen(str) - 1;
-	if (str[length - 3] != '.' || str[length - 2] != 'b'
-		|| str[length - 1] != 'e' || str[length] != 'r')
-		error_handling(array, "Map extension invalid");
+	length = ft_strlen(file_name) - 1;
+	if (file_name[length - 3] != '.' || file_name[length - 2] != 'b'
+		|| file_name[length - 1] != 'e' || file_name[length] != 'r')
+		error_handling(game, game->map.array, "Map extension invalid");
 }
 
-void	valid_characters(char **array)
+void	valid_characters(t_game *game, char **array)
 {
 	int		i;
 	int		j;
@@ -80,36 +81,28 @@ void	valid_characters(char **array)
 			if (array[i][j] != 'E' && array[i][j] != 'P' && array[i][j] != 'C'
 				&& array[i][j] != '0' && array[i][j] != '1'
 				&& array[i][j] != '\n')
-				error_handling(array, "Map contains invalid characters");
+				error_handling(game, array, "Map contains invalid characters");
 			j++;
 		}
 		i++;
 	}
 }
 
-void	enemy_pos_set(t_game *game)
-{
-	game->enemy_pos.x = game->map.exit.x * TILE_SIZE;
-	game->enemy_pos.y = game->map.exit.y * TILE_SIZE;
-	game->enemy_dir.x = 1;
-	game->enemy_dir.y = 1;
-}
-
 void	map_validity(t_game *game, char *file_name)
 {
 	char	**tmp_array;
 
-	tmp_array = create_array(file_name);
-	figure_number_check(game->map.array);
-	rectangular_check(game->map.array);
-	valid_extension(game->map.array, file_name);
-	valid_characters(game->map.array);
-	surrounded_by_walls(game->map.array);
+	figure_number_check(game);
+	rectangular_check(game);
+	valid_characters(game, game->map.array);
+	surrounded_by_walls(game, game->map.array);
+	tmp_array = create_array(game, file_name);
 	valid_path(game, tmp_array);
+	free_2d_array(tmp_array);
 	size_set(game);
 	exit_position_set(game);
 	count_collectibles(&game->map);
 	enemy_pos_set(game);
-	free(tmp_array);
-	//free the tmp_game
+	if (game->map.size.y == 3)
+		ft_exit(game, EXIT_FAILURE, "Map is not playable!");
 }

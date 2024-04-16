@@ -6,38 +6,40 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:46:34 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/14 18:21:20 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:21:52 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	file_opening(char *file_name)
+int	file_opening(t_game *game, char *file_name)
 {
 	int	file;
 
 	file = open(file_name, O_RDONLY);
 	if (file < 0)
-		error_handling(NULL, "Failed to open the file.");
+		error_handling(game, game->map.array, "Failed to open the file.");
 	return (file);
 }
 
-int	count_lines(char *file_name)
+int	count_lines(t_game *game, char *file_name)
 {
 	char	*count_line;
 	int		number_of_lines;
 	int		file;
 
-	file = file_opening(file_name);
+	file = file_opening(game, file_name);
 	count_line = get_next_line(file);
 	if (!count_line)
 	{
 		ft_printf("The file is empty!\n");
+		close(file);
 		return (0);
 	}
 	number_of_lines = 1;
 	while (count_line)
 	{
+		free(count_line);
 		count_line = get_next_line(file);
 		if (count_line)
 			number_of_lines++;
@@ -46,7 +48,7 @@ int	count_lines(char *file_name)
 	return (number_of_lines);
 }
 
-char	**create_array(char *file_name)
+char	**create_array(t_game *game, char *file_name)
 {
 	char	**array;
 	char	*temp;
@@ -55,8 +57,8 @@ char	**create_array(char *file_name)
 	int		j;
 
 	i = 0;
-	array = ft_calloc(count_lines(file_name) + 1, sizeof(char *));
-	file = file_opening(file_name);
+	array = ft_calloc(count_lines(game, file_name) + 1, sizeof(char *));
+	file = file_opening(game, file_name);
 	temp = get_next_line(file);
 	while (temp)
 	{
@@ -64,12 +66,11 @@ char	**create_array(char *file_name)
 		j = 0;
 		while (temp[j])
 		{
-			// ft_printf("%d", array[i][j]);
 			array[i][j] = temp[j];
 			j++;
 		}
-		// ft_printf("\n");
 		i++;
+		free(temp);
 		temp = get_next_line(file);
 	}
 	close(file);

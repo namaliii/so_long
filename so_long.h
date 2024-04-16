@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:14:17 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/15 20:59:33 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:22:21 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ typedef struct s_map
 	int		display_moves;
 }				t_map;
 
+typedef struct s_corners
+{
+	t_point	upper_left;
+	t_point	upper_right;
+	t_point	lower_left;
+	t_point	lower_right;
+}				t_corners;
+
 typedef struct s_game
 {
 	t_map		map;
@@ -56,17 +64,19 @@ typedef struct s_game
 	mlx_image_t	*moves_counter_img;
 	t_point		enemy_pos;
 	t_point		enemy_dir;
+	t_corners	en_cor;
 }				t_game;
 
-void		error_handling(char **array, char *file_name);
-int			file_opening(char *file_name);
-int			count_lines(char *file_name);
-char		**create_array(char *file_name);
-void		rectangular_check(char **array);
-void		surrounded_by_walls(char **array);
-void		figure_number_check(char **array);
-void		valid_extension(char **array, char *file_name);
-void		valid_characters(char **array);
+// map checks
+void		error_handling(t_game *game, char **array, char *str);
+int			file_opening(t_game *game, char *file_name);
+int			count_lines(t_game *game, char *file_name);
+char		**create_array(t_game *game, char *file_name);
+void		rectangular_check(t_game *game);
+void		surrounded_by_walls(t_game *game, char **array);
+void		figure_number_check(t_game *game);
+void		valid_extension(t_game *game, char *file_name);
+void		valid_characters(t_game *game, char **array);
 void		map_validity(t_game *game, char *file_name);
 void		valid_path(t_game *game, char **array);
 void		count_collectibles(t_map *map);
@@ -103,13 +113,18 @@ void		animate_enemy(t_game *game, mlx_image_t **img, int num_imgs);
 void		animate_melon(mlx_image_t **img, int num_imgs);
 void		animate_player(mlx_image_t **img, int num_imgs, t_game *game);
 
-void		my_keyhook(mlx_key_data_t keydata, void *param);
-
 // game
+void		my_keyhook(mlx_key_data_t keydata, void *param);
 void		move_and_collect(t_game *game);
 void		collect_melons(t_game *game, char **array);
 void		enemy_x_collisions(t_game *game);
 void		enemy_y_collisions(t_game *game);
+void		enemy_player_collisions(t_game *game,
+				t_point player_hitbox, t_point enemy_hitbox);
+
+//utils
+void		ft_exit(t_game *game, int exit_code, char *str);
+void		free_2d_array(char **array);
 
 int			main(int argc, char **argv);
 #endif

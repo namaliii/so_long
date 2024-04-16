@@ -6,7 +6,7 @@
 /*   By: anamieta <anamieta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:39:05 by anamieta          #+#    #+#             */
-/*   Updated: 2024/04/14 17:49:38 by anamieta         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:42:28 by anamieta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ mlx_image_t	*load_image(const char *path, t_game *game)
 	img = mlx_texture_to_image(game->mlx, texture);
 	if (!img)
 		return (NULL);
+	mlx_delete_texture(texture);
 	mlx_resize_image(img, 64, 64);
 	return (img);
 }
